@@ -2,25 +2,86 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #2b1d16;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Saffron */
+  --color-saffron-50: #fff7ed;
+  --color-saffron-100: #ffedd5;
+  --color-saffron-200: #fed7aa;
+  --color-saffron-300: #fdba74;
+  --color-saffron-400: #fb923c;
+  --color-saffron-500: #f97316;
+  --color-saffron-600: #ea580c;
+  --color-saffron-700: #c2410c;
+  --color-saffron-800: #9a3412;
+  --color-saffron-900: #7c2d12;
+
+  /* Dark maroon */
+  --color-maroon-50: #fdf3f4;
+  --color-maroon-100: #fbe3e5;
+  --color-maroon-600: #a1152a;
+  --color-maroon-700: #86101f;
+  --color-maroon-800: #6d0f1c;
+  --color-maroon-900: #57101a;
+  --color-maroon-950: #3b0810;
+
+  /* Elegant gold */
+  --color-gold-100: #faf0d7;
+  --color-gold-200: #f3dfae;
+  --color-gold-300: #e8c878;
+  --color-gold-400: #d9ad4f;
+  --color-gold-500: #c9962e;
+  --color-gold-600: #a97a24;
+  --color-gold-700: #8a5f1e;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-saffron-500);
+  outline-offset: 2px;
+}
+
+/* Subtle patterned hero background for the public pages */
+.bg-decor {
+  background-color: #ffffff;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(249, 115, 22, 0.08) 0, transparent 34%),
+    radial-gradient(circle at 88% 12%, rgba(161, 21, 42, 0.07) 0, transparent 36%),
+    radial-gradient(circle at 70% 90%, rgba(201, 150, 46, 0.08) 0, transparent 28%);
+}
+
+/* Deep maroon hero band */
+.bg-hero {
+  background-color: var(--color-maroon-900);
+  background-image:
+    linear-gradient(rgba(168, 32, 26, 0.35), rgba(59, 8, 16, 0.85)),
+    radial-gradient(circle at 15% 20%, rgba(255, 153, 51, 0.35) 0, transparent 30%),
+    radial-gradient(circle at 85% 15%, rgba(201, 150, 46, 0.3) 0, transparent 24%);
+}
+
+.gold-divider {
+  background: linear-gradient(90deg, transparent, var(--color-gold-500), transparent);
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--color-saffron-400), var(--color-gold-300));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
