@@ -1,26 +1,15 @@
 import type { Metadata } from "next";
 
 import { RegisterForm } from "@/components/auth/register-form";
-import { createClient } from "@/lib/supabase/server";
-import { cacheSettings } from "@/lib/settings-cache";
+import { cachePublicTeachers, cacheSettings } from "@/lib/settings-cache";
 
 export const metadata: Metadata = { title: "Student Registration" };
-export const dynamic = "force-dynamic";
 
 export default async function RegisterPage() {
-  const settings = await cacheSettings();
-
-  let teachers: { id: string; full_name: string }[] = [];
-  try {
-    const supabase = await createClient();
-    const { data } = await supabase
-      .from("teachers_public")
-      .select("id, full_name")
-      .order("full_name");
-    teachers = data ?? [];
-  } catch {
-    teachers = [];
-  }
+  const [settings, teachers] = await Promise.all([
+    cacheSettings(),
+    cachePublicTeachers().catch(() => [] as { id: string; full_name: string }[]),
+  ]);
 
   const consentText = `I confirm that the information provided is correct and consent to ${settings.templeName} processing my details for the purpose of the ISKCON Disciples Course.`;
 

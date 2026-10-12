@@ -3,7 +3,6 @@ import { LogoMark } from "@/components/layout/brand";
 import { ResetPasswordForm } from "@/components/auth/reset-password-form";
 
 export const metadata: Metadata = { title: "Reset Password" };
-export const dynamic = "force-dynamic";
 
 export default function ResetPasswordPage() {
   return (

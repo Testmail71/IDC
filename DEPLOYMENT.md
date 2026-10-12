@@ -79,7 +79,7 @@ Then sign in at `/login` and immediately change the password.
   bypasses RLS; leaking it compromises the whole database.
 - **`dynamic = "force-dynamic"`** is set on data pages so builds never require a
   live database and always render fresh, permission-scoped data.
-- **`vercel.json`** is not required; default Next.js build settings work.
+- **`vercel.json`** configures `"regions": ["bom1"]` (Mumbai) so serverless functions run in the same data center region as the Supabase database, eliminating cross-continental latency.
 - **Backups:** enable Supabase daily backups (available on paid plans) or
   schedule `pg_dump` snapshots.
 - **Storage limits:** file-size caps are configurable in Admin → Settings; keep

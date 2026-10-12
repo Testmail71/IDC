@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 
 import { AUDIT_ACTIONS, recordAudit } from "@/lib/audit";
 import { requireAdmin } from "@/lib/auth";
@@ -41,7 +41,10 @@ export async function updateSettingsAction(
   });
 
   revalidatePath("/admin/settings");
-  revalidatePath("/");
+  updateTag("settings");
+  for (const path of ["/", "/contact", "/about", "/register", "/verify"]) {
+    revalidatePath(path);
+  }
   return { ok: true, message: "Settings saved." };
 }
 
@@ -66,7 +69,10 @@ export async function saveLogoAction(path: string): Promise<ActionResult> {
   });
 
   revalidatePath("/admin/settings");
-  revalidatePath("/");
+  updateTag("settings");
+  for (const path of ["/", "/contact", "/about", "/register", "/verify"]) {
+    revalidatePath(path);
+  }
   return { ok: true, message: "Logo updated." };
 }
 

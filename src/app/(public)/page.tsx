@@ -15,8 +15,6 @@ import { Faq } from "@/components/public/faq";
 import { Button } from "@/components/ui/button";
 import { cacheSettings } from "@/lib/settings-cache";
 
-export const dynamic = "force-dynamic";
-
 const STEPS = [
   {
     icon: UserPlus,
@@ -133,17 +131,6 @@ export default async function HomePage() {
                 Student Login
               </Button>
             </div>
-            <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-stone-300">
-              <span className="inline-flex items-center gap-2">
-                <BookOpen className="h-4 w-4 text-gold-400" /> 12 structured classes
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <IndianRupee className="h-4 w-4 text-gold-400" /> Flexible fee installments
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <FileBadge className="h-4 w-4 text-gold-400" /> Verifiable certificate
-              </span>
-            </div>
           </div>
         </div>
       </section>
@@ -188,57 +175,6 @@ export default async function HomePage() {
               <p className="mt-1.5 text-sm leading-relaxed text-stone-500">{f.text}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* Fee & payment transparency */}
-      <section className="border-y border-stone-100 bg-stone-50">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:py-20">
-          <div>
-            <SectionHeading
-              align="left"
-              eyebrow="Fees & payments"
-              title="Simple, transparent and receipted"
-              subtitle="The course fee supports study materials, examinations and certification. Pay in easy installments as agreed with the administrator."
-            />
-            <ul className="mt-6 space-y-3 text-sm text-stone-600">
-              {[
-                "Pay by cash, UPI or bank transfer to the temple",
-                "Partial payments are tracked accurately against your dues",
-                "Every verified payment generates a downloadable PDF receipt",
-                "Waivers, discounts and refunds are recorded with a full audit trail",
-              ].map((t) => (
-                <li key={t} className="flex items-start gap-2.5">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
-                  {t}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-8">
-              <Button href="/register" variant="maroon" size="lg">
-                Start your registration
-              </Button>
-            </div>
-          </div>
-          <div className="rounded-2xl border border-stone-200 bg-white p-8 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-wider text-stone-400">
-              Course at a glance
-            </p>
-            <dl className="mt-4 divide-y divide-stone-100">
-              {[
-                ["Classes", "12 structured sessions"],
-                ["Assessment", "Written examination"],
-                ["Fee", "Installments accepted"],
-                ["Receipts", "PDF, downloadable"],
-                ["Certificate", "Serialised & verifiable"],
-              ].map(([k, v]) => (
-                <div key={k} className="flex items-center justify-between py-3">
-                  <dt className="text-sm text-stone-500">{k}</dt>
-                  <dd className="text-sm font-semibold text-stone-900">{v}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
         </div>
       </section>
 

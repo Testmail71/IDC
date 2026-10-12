@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 
 import { AUDIT_ACTIONS, recordAudit } from "@/lib/audit";
 import { requireAdmin } from "@/lib/auth";
@@ -83,6 +83,8 @@ export async function createTeacherAction(input: {
     });
 
     revalidatePath("/admin/teachers");
+    updateTag("teachers");
+    revalidatePath("/register");
     return { ok: true, message: "Teacher account created." };
   } catch (error) {
     await admin.auth.admin.deleteUser(userId);
@@ -140,5 +142,7 @@ export async function updateTeacherAction(input: {
   });
 
   revalidatePath("/admin/teachers");
+  updateTag("teachers");
+  revalidatePath("/register");
   return { ok: true, message: "Teacher updated." };
 }

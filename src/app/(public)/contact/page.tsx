@@ -4,7 +4,6 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { cacheSettings } from "@/lib/settings-cache";
 
 export const metadata: Metadata = { title: "Contact" };
-export const dynamic = "force-dynamic";
 
 export default async function ContactPage() {
   const settings = await cacheSettings();
@@ -30,7 +29,11 @@ export default async function ContactPage() {
           icon={<Phone className="h-5 w-5" />}
           title="Call"
           value={settings.contactPhone || "—"}
-          href={settings.contactPhone ? `tel:${settings.contactPhone.replace(/\s+/g, "")}` : undefined}
+          href={
+            settings.contactPhone && /\d/.test(settings.contactPhone)
+              ? `tel:${settings.contactPhone.replace(/\s+/g, "")}`
+              : undefined
+          }
         />
         <ContactCard
           icon={<Mail className="h-5 w-5" />}

@@ -1592,12 +1592,12 @@ on conflict (code) do nothing;
 
 -- Default portal settings (jsonb key -> value). Update values as needed.
 insert into public.portal_settings (key, value) values
-  ('temple_name', '"ISKCON Temple"'),
+  ('temple_name', '"ISKCON Durgapur"'),
   ('idc_center_name', '"ISKCON Disciples Course Department"'),
   ('logo_path', '""'),
-  ('contact_email', '"idc@example.org"'),
-  ('contact_phone', '"+91 00000 00000"'),
-  ('contact_address', '"ISKCON Temple, India"'),
+  ('contact_email', '"info.iskcondurgapur@gmail.com"'),
+  ('contact_phone', '"Not Required"'),
+  ('contact_address', '"ISKCON Durgapur"'),
   ('public_disclose_student_name', 'true'),
   ('require_payment_before_certificate', 'true'),
   ('allow_exam_without_completion', 'false'),
