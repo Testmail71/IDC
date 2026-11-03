@@ -22,6 +22,7 @@ export async function signInAction(
   const supabase = await createClient();
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
+  const targetRedirect = String(formData.get("redirect") ?? "").trim();
 
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) {
@@ -33,18 +34,39 @@ export async function signInAction(
   } = await supabase.auth.getUser();
   if (!user) return { error: "Unable to load your account." };
 
-  const { data: profile } = await supabase
+  const { data: profile, error: profileError } = await supabase
     .from("profiles")
-    .select("role, status")
+    .select("role, is_active")
     .eq("id", user.id)
     .single();
 
-  if (profile?.status === "disabled" || profile?.status === "suspended") {
+  if (profileError || !profile) {
+    return { error: "Unable to load your profile. Please contact the administrator." };
+  }
+
+  if (!profile.is_active) {
     await supabase.auth.signOut();
     return { error: "Your account has been disabled. Please contact the administrator." };
   }
 
-  redirect(dashboardPathForRole(profile?.role ?? null));
+  if (
+    targetRedirect &&
+    targetRedirect.startsWith("/") &&
+    !targetRedirect.startsWith("//") &&
+    !targetRedirect.startsWith("/login")
+  ) {
+    const isSuperOrAdmin = profile.role === "admin" || profile.role === "super_admin";
+    const allowedPrefix = isSuperOrAdmin ? "/admin" : `/${profile.role}`;
+    if (
+      targetRedirect === allowedPrefix ||
+      targetRedirect.startsWith(`${allowedPrefix}/`) ||
+      targetRedirect === "/dashboard"
+    ) {
+      redirect(targetRedirect);
+    }
+  }
+
+  redirect(dashboardPathForRole(profile.role));
 }
 
 export async function changePasswordAction(

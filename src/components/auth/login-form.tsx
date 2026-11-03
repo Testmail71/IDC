@@ -9,17 +9,28 @@ import { signInAction } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Field, Input } from "@/components/ui/input";
 
-export function LoginForm({ initialError }: { initialError?: string }) {
+export function LoginForm({
+  initialError,
+  redirectParam,
+}: {
+  initialError?: string;
+  redirectParam?: string;
+}) {
   const [state, formAction, pending] = useActionState(signInAction, null);
   const [showPassword, setShowPassword] = React.useState(false);
 
   const error =
     initialError === "account_disabled"
       ? "Your account has been disabled. Please contact the administrator."
-      : state?.error;
+      : initialError === "link_invalid"
+        ? "The sign-in or reset link is invalid or has expired. Please try again."
+        : state?.error;
 
   return (
     <form action={formAction} className="space-y-5">
+      {redirectParam && (
+        <input type="hidden" name="redirect" value={redirectParam} />
+      )}
       {error && (
         <div className="flex items-start gap-2.5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
           <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />

@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; next?: string }>;
+  searchParams: Promise<{ error?: string; next?: string; redirect?: string }>;
 }) {
   const params = await searchParams;
   const session = await getCurrentSession();
@@ -49,7 +49,10 @@ export default async function LoginPage({
           <p className="mt-1 mb-6 text-sm text-stone-500">
             Enter your registered email and password.
           </p>
-          <LoginForm initialError={params.error} />
+          <LoginForm
+            initialError={params.error}
+            redirectParam={params.redirect ?? params.next}
+          />
         </div>
         <p className="mt-6 text-center text-xs text-stone-400">
           Administrators and teachers also sign in here.
